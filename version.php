@@ -6,8 +6,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2024071000;
+$plugin->version = 2024090500;
 $plugin->requires = 2016052300;
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '4.4.1';
+$plugin->release = '4.5.0';
 $plugin->component = 'local_moodleappbehat';
