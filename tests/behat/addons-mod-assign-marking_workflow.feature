@@ -46,6 +46,7 @@ Feature: Test marking workflow in assignment activity in app
     And I navigate to "Submissions" in current page administration
     And I change window size to "large"
     And I go to "Student1" "Group Assign" activity advanced grading page
+
     And I set the field "Grade out of 100" to "50"
     And I set the field "Marking workflow state" to "In review"
     And I set the field "Feedback comments" to "Great job! Lol, not really."
@@ -84,7 +85,7 @@ Feature: Test marking workflow in assignment activity in app
     And the field "Grade out of 100" matches value "50" in the app
     And I should not find "Graded by" in the app
 
-    When I press the back button in the app
+    When I go back in the app
     And I press "Student3" in the app
     And I press "Grade" in the app
     Then I should find "Submitted for grading" in the app
@@ -101,6 +102,7 @@ Feature: Test marking workflow in assignment activity in app
     And I press "Grade" in the app
     When I set the field "Grade out of 100" to "60" in the app
     And I press "Done" in the app
+    And I wait loading to finish in the app
     And I press "Student1" in the app
     And I press "Grade" in the app
     Then I should find "60 / 100" within "Current grade in assignment" "ion-item" in the app
@@ -108,11 +110,12 @@ Feature: Test marking workflow in assignment activity in app
     And I should find "In review" within "Marking workflow state" "ion-item" in the app
     And the field "Grade out of 100" matches value "60" in the app
 
-    When I press the back button in the app
+    When I go back in the app
     And I press "Student3" in the app
     And I press "Grade" in the app
     When I set the field "Grade out of 100" to "80" in the app
     And I press "Done" in the app
+    And I wait loading to finish in the app
     And I press "Student3" in the app
     And I press "Grade" in the app
     Then I should find "80" within "Current grade in gradebook" "ion-item" in the app

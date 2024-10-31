@@ -31,7 +31,7 @@ Feature: Users can store entries in database activities when offline and sync wh
     Given I entered the data activity "Web links" on course "Course 1" as "student1" in the app
     And I switch network connection to offline
     And I should find "No entries yet" in the app
-    When I press "Add entries" in the app
+    When I press "Add entry" in the app
     And I set the following fields to these values in the app:
       | URL | https://moodle.org/ |
       | Description | Moodle community site |
@@ -39,7 +39,7 @@ Feature: Users can store entries in database activities when offline and sync wh
     Then I should find "https://moodle.org/" in the app
     And I should find "Moodle community site" in the app
     And I should find "This Database has offline data to be synchronised" in the app
-    And I press the back button in the app
+    And I go back in the app
     And I switch network connection to wifi
     And I press "Web links" near "General" in the app
     And I should find "https://moodle.org/" in the app
@@ -49,7 +49,7 @@ Feature: Users can store entries in database activities when offline and sync wh
   Scenario: Update entry (offline) & Delete entry (offline)
     Given I entered the data activity "Web links" on course "Course 1" as "student1" in the app
     And I should find "No entries yet" in the app
-    And I press "Add entries" in the app
+    And I press "Add entry" in the app
     And I set the following fields to these values in the app:
       | URL | https://moodle.org/ |
       | Description | Moodle community site |
@@ -72,7 +72,7 @@ Feature: Users can store entries in database activities when offline and sync wh
     And I should find "https://moodlecloud.com/" in the app
     And I should find "Moodle Cloud" in the app
     And I should find "This Database has offline data to be synchronised" in the app
-    And I press the back button in the app
+    And I go back in the app
     And I switch network connection to wifi
     And I press "Web links" near "General" in the app
     And I should not find "https://moodle.org/" in the app
@@ -91,7 +91,7 @@ Feature: Users can store entries in database activities when offline and sync wh
     And I should find "https://moodlecloud.com/" in the app
     And I should find "Moodle Cloud" in the app
     And I should find "This Database has offline data to be synchronised" in the app
-    And I press the back button in the app
+    And I go back in the app
     And I switch network connection to wifi
     And I press "Web links" near "General" in the app
     And I should not find "https://moodlecloud.com/" in the app
@@ -101,7 +101,7 @@ Feature: Users can store entries in database activities when offline and sync wh
   Scenario: Students can undo deleting entries to a database in the app while offline
     Given I entered the data activity "Web links" on course "Course 1" as "student1" in the app
     And I should find "No entries yet" in the app
-    And I press "Add entries" in the app
+    And I press "Add entry" in the app
     And I set the following fields to these values in the app:
       | URL | https://moodle.org/ |
       | Description | Moodle community site |
@@ -122,7 +122,7 @@ Feature: Users can store entries in database activities when offline and sync wh
     And I should find "This Database has offline data to be synchronised" in the app
     And I press "Actions menu" in the app
     And I press "Restore" in the app
-    And I press the back button in the app
+    And I go back in the app
     And I switch network connection to wifi
     And I press "Web links" near "General" in the app
     Then I should find "https://moodle.org/" in the app

@@ -29,12 +29,12 @@ Feature: Test basic usage of BBB activity in app
     Then I should find "The session has not started yet." in the app
     And I should find "Saturday, 1 January 2050, 12:00 AM" within "Open" "ion-item" in the app
 
-    When I press the back button in the app
+    When I go back in the app
     And I press "BBB 2" in the app
     Then I should find "The session has ended." in the app
     And I should find "Saturday, 1 January 2000, 12:00 AM" within "Close" "ion-item" in the app
 
-    When I press the back button in the app
+    When I go back in the app
     And I press "BBB 3" in the app
     Then I should find "This room is ready. You can join the session now." in the app
     And I should find "Saturday, 1 January 2000, 12:00 AM" within "Open" "ion-item" in the app
@@ -49,6 +49,8 @@ Feature: Test basic usage of BBB activity in app
     And I should be able to press "Join session" in the app
 
     When I press "Join session" in the app
+    # TODO: This step will make behat github actions work but we should find a better way to wait for the room to start.
+    And I wait "3" seconds
     And I wait for the BigBlueButton room to start
     And I switch back to the app
     Then I should find "The session is in progress." in the app
@@ -68,6 +70,8 @@ Feature: Test basic usage of BBB activity in app
     And I should be able to press "Join session" in the app
 
     When I press "Join session" in the app
+    # TODO: This step will make behat github actions work but we should find a better way to wait for the room to start.
+    And I wait "3" seconds
     And I wait for the BigBlueButton room to start
     And I switch back to the app
     Then I should find "The session is in progress." in the app
@@ -109,13 +113,13 @@ Feature: Test basic usage of BBB activity in app
     And I should find "Recordings" in the app
     And I should find "There are no recordings available." in the app
 
-    When I press the back button in the app
+    When I go back in the app
     And I press "Room only" in the app
     Then I should find "This room is ready. You can join the session now." in the app
     And I should be able to press "Join session" in the app
     But I should not find "Recordings" in the app
 
-    When I press the back button in the app
+    When I go back in the app
     And I press "Recordings only" in the app
     Then I should find "Recordings" in the app
     But I should not find "This room is ready. You can join the session now." in the app

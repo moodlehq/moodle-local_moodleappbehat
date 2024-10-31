@@ -150,7 +150,7 @@ Feature: Attempt a quiz in app
       | \mod_quiz\event\attempt_reviewed       | quiz     | Quiz 1       | Course 1 |              |
       | \mod_quiz\event\attempt_summary_viewed | quiz     | Quiz 1       | Course 1 |              |
 
-    When I press the back button in the app
+    When I go back in the app
     And I press "Attempt 1" in the app
     Then I should find "1" within "Attempt" "ion-item" in the app
     And I should find "Finished" within "Status" "ion-item" in the app
@@ -167,12 +167,16 @@ Feature: Attempt a quiz in app
     And I press "Three" in the app
     And I set the field "Answer" to "Berlin" in the app
     And I press "Next" in the app
+    And I wait loading to finish in the app
     And I set the field "Answer" to "testing" in the app
     And I press "Next" in the app
+    And I wait loading to finish in the app
     And I set the field "Answer" to "5" in the app
     And I press "Next" in the app
+    And I wait loading to finish in the app
     And I set the field "Answer" to "Testing an essay" in the app
     And I press "Next" "ion-button" in the app
+    And I wait loading to finish in the app
     And I press "quick" ".drag" in the app
     And I click on ".place1.drop" "css"
     And I press "fox" ".drag" in the app
@@ -180,26 +184,33 @@ Feature: Attempt a quiz in app
     And I press "lazy" ".drag" in the app
     And I click on ".place3.drop" "css"
     And I press "Next" in the app
+    And I wait loading to finish in the app
     And I press "True" in the app
     And I press "Next" in the app
+    And I wait loading to finish in the app
     And I set the field "frog" to "amphibian" in the app
     And I set the field "newt" to "insect" in the app
     And I set the field "cat" to "mammal" in the app
     And I press "Next" in the app
+    And I wait loading to finish in the app
     Then I should find "Text of the eighth question" in the app
 
     When I press "Next" in the app
+    And I wait loading to finish in the app
     And I set the field "Blank 1" to "cat" in the app
     And I set the field "Blank 2" to "mat" in the app
     And I press "Next" in the app
+    And I wait loading to finish in the app
     And I press "abyssal" ".drag" in the app
     And I click on ".place6.dropzone" "css"
     And I press "trench" ".drag" in the app
     And I click on ".place3.dropzone" "css"
     And I press "Next" in the app
+    And I wait loading to finish in the app
     And I press "Railway station" ".marker" in the app
     And I click on "img.dropbackground" "css"
     And I press "Submit" in the app
+    And I wait loading to finish in the app
     Then I should find "Answer saved" in the app
     And I should find "Incomplete answer" within "10" "ion-item" in the app
     But I should not find "Not yet answered" in the app
@@ -212,10 +223,9 @@ Feature: Attempt a quiz in app
     And I should find "Finished" in the app
     And I should find "Not yet graded" in the app
 
-    # @todo Disable these steps until app 4.5 because it requires changes in the app's code to make it work with LMS 4.5.
-    # When I press "Correct" within "Question 2" "ion-card" in the app
-    # Then I should find "The correct answer is: Berlin" in the app
-    # And I should find "Mark 1.00 out of 1.00" in the app
+    When I press "Correct" within "Question 2" "ion-card" in the app
+    Then I should find "The correct answer is: Berlin" in the app
+    And I should find "Mark 1.00 out of 1.00" in the app
 
   Scenario: Submit a quiz & Review a quiz attempt
     Given I entered the quiz activity "Quiz 1" on course "Course 1" as "student1" in the app
@@ -225,8 +235,10 @@ Feature: Attempt a quiz in app
 
     When I press "True" in the app
     And I press "Next" in the app
+    And I wait loading to finish in the app
     And I press "False" in the app
     And I press "Submit" in the app
+    And I wait loading to finish in the app
     And I press "Submit all and finish" in the app
     Then I should find "Once you submit" in the app
     But I should not find "Questions without a response" in the app
