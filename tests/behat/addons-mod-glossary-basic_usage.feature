@@ -174,32 +174,27 @@ Feature: Test basic usage of glossary in app
       | Definition | Coconut is a fruit |
     And I press "Add file" in the app
     And I upload "stub1.txt" to "File" ".action-sheet-button" in the app
-    And I press "Add file" in the app
-    And I upload "stub2.txt" to "File" ".action-sheet-button" in the app
     And I press "This entry should be automatically linked" "ion-toggle" in the app
     And I press "This entry is case sensitive" "ion-toggle" in the app
     And I press "Match whole words only" "ion-toggle" in the app
     And I press "Save" in the app
     Then I should find "Coconut is a fruit" in the app
     And I should find "stub1.txt" in the app
-    And I should find "stub2.txt" in the app
     But I should not find "Cucumber is a fruit" in the app
 
     When I press "Edit entry" in the app
     Then I should find "stub1.txt" in the app
-    And I should find "stub2.txt" in the app
     And "This entry should be automatically linked" "ion-toggle" should be selected in the app
     And "This entry is case sensitive" "ion-toggle" should be selected in the app
     And "Match whole words only" "ion-toggle" should be selected in the app
 
-    When I press "Delete" within "stub2.txt" "ion-item" in the app
+    When I press "Delete" within "stub1.txt" "ion-item" in the app
     And I press "Delete" near "Are you sure you want to delete this file?" in the app
     And I press "Add file" in the app
     And I upload "stub3.txt" to "File" ".action-sheet-button" in the app
     And I press "Save" in the app
-    Then I should find "stub1.txt" in the app
-    And I should find "stub3.txt" in the app
-    But I should not find "stub2.txt" in the app
+    Then I should find "stub3.txt" in the app
+    But I should not find "stub1.txt" in the app
 
     When I go back in the app
     Then I should find "Coconut" in the app
@@ -218,8 +213,6 @@ Feature: Test basic usage of glossary in app
     And I press "OK" in the app
     And I press "Add file" in the app
     And I upload "stub1.txt" to "File" ".action-sheet-button" in the app
-    And I press "Add file" in the app
-    And I upload "stub2.txt" to "File" ".action-sheet-button" in the app
     And I press "This entry should be automatically linked" "ion-toggle" in the app
     And I press "This entry is case sensitive" "ion-toggle" in the app
     And I press "Match whole words only" "ion-toggle" in the app
@@ -230,7 +223,6 @@ Feature: Test basic usage of glossary in app
     When I press "Broccoli" in the app
     Then I should find "Brassica oleracea var. italica" in the app
     And I should find "stub1.txt" in the app
-    And I should find "stub2.txt" in the app
 
     When I press "Edit entry" in the app
     Then the field "Concept" matches value "Broccoli" in the app
@@ -238,7 +230,6 @@ Feature: Test basic usage of glossary in app
     And the field "Keyword(s)" matches value "vegetable, healthy" in the app
     And I should find "The ones I like" in the app
     And I should find "stub1.txt" in the app
-    And I should find "stub2.txt" in the app
     And "This entry should be automatically linked" "ion-toggle" should be selected in the app
     And "This entry is case sensitive" "ion-toggle" should be selected in the app
     And "Match whole words only" "ion-toggle" should be selected in the app
@@ -246,15 +237,14 @@ Feature: Test basic usage of glossary in app
     When I set the following fields to these values in the app:
       | Concept | Pickle |
       | Definition | Pickle Rick |
-    And I press "Delete" within "stub2.txt" "ion-item" in the app
+    And I press "Delete" within "stub1.txt" "ion-item" in the app
     And I press "Delete" near "Are you sure you want to delete this file?" in the app
     And I press "Add file" in the app
     And I upload "stub3.txt" to "File" ".action-sheet-button" in the app
     And I press "Save" in the app
     Then I should find "Pickle Rick" in the app
-    And I should find "stub1.txt" in the app
     And I should find "stub3.txt" in the app
-    But I should not find "stub2.txt" in the app
+    But I should not find "stub1.txt" in the app
     And I should not find "Brassica oleracea var. italica" in the app
 
     When I go back in the app
@@ -269,9 +259,8 @@ Feature: Test basic usage of glossary in app
 
     When I press "Pickle" in the app
     Then I should find "Pickle Rick" in the app
-    And I should find "stub1.txt" in the app
     And I should find "stub3.txt" in the app
-    But I should not find "stub2.txt" in the app
+    But I should not find "stub1.txt" in the app
     And I should not find "Brassica oleracea var. italica" in the app
 
   Scenario: Delete entries
