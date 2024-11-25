@@ -1,4 +1,4 @@
-@addon_mod_quiz @app @javascript @lms_from4.4
+@addon_mod_quiz @app @javascript @lms_from4.4 @ci_jenkins_skip
 Feature: Attempt a quiz in app
   As a student
   In order to demonstrate what I know
