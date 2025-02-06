@@ -1,4 +1,4 @@
-@addon_mod_forum @app @javascript
+@addon_mod_forum @app @javascript @ci_jenkins_skip
 Feature: Test forum navigation
 
   Background:
