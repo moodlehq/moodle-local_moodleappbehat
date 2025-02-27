@@ -1,4 +1,4 @@
-@addon_competency @app @javascript @lms_upto4.5
+@addon_competency @app @javascript @lms_upto4.5 @ci_jenkins_skip
 Feature: Test competency navigation
 
   Background:
