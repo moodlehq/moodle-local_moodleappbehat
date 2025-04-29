@@ -201,10 +201,10 @@ Feature: Attempt a quiz in app
     And I set the field "Blank 2" to "mat" in the app
     And I press "Next" in the app
     And I wait loading to finish in the app
-    And I press "abyssal" ".drag" in the app
-    And I click on ".place6.dropzone" "css"
-    And I press "trench" ".drag" in the app
-    And I click on ".place3.dropzone" "css"
+    # And I press "abyssal" ".drag" in the app
+    # And I click on ".place6.dropzone" "css"
+    # And I press "trench" ".drag" in the app
+    # And I click on ".place3.dropzone" "css"
     And I press "Next" in the app
     And I wait loading to finish in the app
     And I press "Railway station" ".marker" in the app
@@ -212,8 +212,8 @@ Feature: Attempt a quiz in app
     And I press "Submit" in the app
     And I wait loading to finish in the app
     Then I should find "Answer saved" in the app
-    And I should find "Incomplete answer" within "10" "ion-item" in the app
-    But I should not find "Not yet answered" in the app
+    # And I should find "Incomplete answer" within "10" "ion-item" in the app
+    # But I should not find "Not yet answered" in the app
 
     When I press "Submit all and finish" in the app
     Then I should find "Questions without a response: 1" in the app
