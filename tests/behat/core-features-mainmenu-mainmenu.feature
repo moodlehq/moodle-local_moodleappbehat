@@ -2,7 +2,11 @@
 Feature: Main Menu opens the right page
 
   Background:
-    Given the following "users" exist:
+    # These 2 settings are needed in Moodle 5.2+, in previous versions they're ignored.
+    Given the following config values are set as admin:
+      | enablemyhome | 1 |
+      | enablemycourses | 1 |
+    And the following "users" exist:
       | username |
       | student  |
     And the following "courses" exist:
