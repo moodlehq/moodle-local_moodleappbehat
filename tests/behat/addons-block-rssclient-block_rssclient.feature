@@ -3,6 +3,8 @@ Feature: Basic tests of rss client block
 
   Background:
     Given the Moodle site is compatible with this feature
+    And the following config values are set as admin:
+      | enablemyhome | 1 |
     And the following "users" exist:
       | username | firstname | lastname | email |
       | student1 | Student | 1 | student1@example.com |
