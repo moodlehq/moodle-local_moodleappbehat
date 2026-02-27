@@ -2,7 +2,9 @@
 Feature: It navigates properly within settings.
 
   Background:
-    Given the following "users" exist:
+    Given the following config values are set as admin:
+      | enablemyhome | 1 |
+    And the following "users" exist:
       | username |
       | student1 |
 
