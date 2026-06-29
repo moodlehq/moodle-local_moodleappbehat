@@ -1,7 +1,8 @@
-@core_settings @app @javascript
+@app_parallel_run_settings @core_settings @app @javascript
 Feature: It navigates properly within settings.
 
   Background:
+    # TODO MOBILE-4999: Remove the enablemyhome config when the app properly supports having Site home disabled.
     Given the following config values are set as admin:
       | enablemyhome | 1 |
     And the following "users" exist:

@@ -1,4 +1,4 @@
-@addon_block_globalsearch @app @block @block_globalsearch @javascript @lms_from4.3
+@app_parallel_run_search @addon_block_globalsearch @app @block @block_globalsearch @javascript @lms_from4.3
 Feature: View the global search block and check it links to the page
 
   Background:
@@ -28,6 +28,7 @@ Feature: View the global search block and check it links to the page
     And I press "Search" "button" in the app
     Then I should find "No results for" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     # Add another block just to ensure there is something in the block region and the drawer is displayed.
     Given the following "blocks" exist:

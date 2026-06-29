@@ -38,7 +38,6 @@ class behat_app extends behat_app_helper {
     /** @var array Config overrides */
     protected $appconfig = [
         'disableUserTours' => true,
-        'enableonboarding' => false,
         'toastDurations' => [ // Extend toast durations in Behat so they don't disappear too soon.
             'short' => 7500,
             'long' => 10000,
@@ -52,14 +51,10 @@ class behat_app extends behat_app_helper {
     protected $scenariolaststep;
 
     /**
-     * @BeforeScenario
+     * @BeforeScenario @app
      */
     public function before_scenario(ScenarioScope $scope) {
         $feature = $scope->getFeature();
-
-        if (!$feature->hasTag('app')) {
-            return;
-        }
 
         $steps = $scope->getScenario()->getSteps();
 
@@ -133,10 +128,7 @@ class behat_app extends behat_app_helper {
      * @throws DriverException Issue with configuration or feature file
      * @throws dml_exception Problem with Moodle setup
      * @throws ExpectationException Problem with resizing window
-     * @deprecated since 5.1 "I launch the app :runtime" is deprecated, use "I launch the app" instead and
-     * "Given the app has the following config:
-     * | enableonboarding | true |"
-     * to enable onboarding in tests that need it.
+     * @deprecated since 5.1 "I launch the app :runtime" is deprecated, use "I launch the app" instead
      */
     public function i_launch_the_app(string $runtime = '') {
         // Go to page and prepare browser for app.
@@ -563,7 +555,7 @@ class behat_app extends behat_app_helper {
     }
 
     /**
-     * Receives push notifications.
+     * Clicks a push notification.
      *
      * @When /^I click a push notification in the app for:$/
      * @param TableNode $data Table data
@@ -580,6 +572,23 @@ class behat_app extends behat_app_helper {
             $data->component = 'mod_forum';
         }
 
+        $customdata = [];
+
+        if (isset($discussion->id, $module->id, $discussion->forum)) {
+            $customdata['discussionid'] = $discussion->id;
+            $customdata['cmid'] = $module->id;
+            $customdata['instance'] = $discussion->forum;
+        }
+
+        if (isset($data->appurl)) {
+            $customdata['appurl'] = $data->appurl;
+            $customdata['appurlopenin'] = $data->appurlopenin ?? null;
+        }
+
+        if (isset($data->extendedtext)) {
+            $customdata['extendedtext'] = $data->extendedtext;
+        }
+
         $notification = json_encode([
             'site' => md5($CFG->behat_wwwroot . $data->username),
             'subject' => $data->subject ?? null,
@@ -591,11 +600,9 @@ class behat_app extends behat_app_helper {
             'courseid' => $discussion->course ?? null,
             'moodlecomponent' => $data->component ?? null,
             'name' => $data->name ?? null,
-            'contexturl' => '',
+            'contexturl' => $data->contexturl ?? '',
             'notif' => 1,
-            'customdata' => isset($discussion->id, $module->id, $discussion->forum)
-                ? ['discussionid' => $discussion->id, 'cmid' => $module->id, 'instance' => $discussion->forum]
-                : null,
+            'customdata' => empty($customdata) ? null : $customdata,
             'additionalData' => isset($data->subject) || isset($data->userfrom)
                 ? ['foreground' => true, 'notId' => 23, 'notif' => 1] : null,
         ]);
@@ -829,45 +836,22 @@ class behat_app extends behat_app_helper {
      * to race conditions.
      *
      * @Then /^I (unselect|select) (".+") in the app$/
-     * @param string $selectedtext Text inidicating if the element should be selected or unselected
+     * @param string $action Text inidicating if the element should be selected or unselected
      * @param string $locator Element locator
      * @throws DriverException If the press doesn't work
      */
-    public function i_select_in_the_app(string $selectedtext, string $locator) {
-        $selected = $selectedtext === 'select' ? 'YES' : 'NO';
+    public function i_select_in_the_app(string $action, string $locator) {
         $locator = $this->parse_element_locator($locator);
 
-        $this->spin(function() use ($selectedtext, $selected, $locator) {
-            // Don't do anything if the item is already in the expected state.
-            $result = $this->runtime_js("isSelected($locator)");
-
-            if ($result === $selected) {
-                return true;
-            }
-
-            // Press element.
-            $result = $this->runtime_js("press($locator)");
+        $this->spin(function() use ($action, $locator) {
+            // Select/unselect element.
+            $result = $this->runtime_js("select($locator, '$action')");
 
             if ($result !== 'OK') {
-                throw new DriverException('Error pressing element - ' . $result);
+                throw new DriverException('Error selecting element - ' . $result);
             }
 
-            // Check that it worked as expected.
-            $this->wait_for_pending_js();
-
-            $result = $this->runtime_js("isSelected($locator)");
-
-            switch ($result) {
-                case 'YES':
-                case 'NO':
-                    if ($result !== $selected) {
-                        throw new ExpectationException("Item wasn't $selectedtext after pressing it", $this->getSession()->getDriver());
-                    }
-
-                    return true;
-                default:
-                    throw new DriverException('Error finding item - ' . $result);
-            }
+            return true;
         });
 
         $this->wait_for_pending_js();
@@ -1183,18 +1167,8 @@ class behat_app extends behat_app_helper {
 
         $this->evaluate_script('window.close()');
         $this->getSession()->switchToWindow($names[0]);
-    }
 
-    /**
-     * Switch navigator online mode.
-     *
-     * @Given /^I switch offline mode to "(true|false)"$/
-     * @param string $offline New value for navigator online mode
-     * @throws DriverException If the navigator.online mode is not available
-     * @deprecated since 4.1 use i_switch_network_connection instead.
-     */
-    public function i_switch_offline_mode(string $offline) {
-        $this->i_switch_network_connection($offline == 'true' ? 'offline' : 'wifi');
+        $this->runtime_js("browserTabClosed()");
     }
 
     /**
@@ -1378,6 +1352,9 @@ class behat_app extends behat_app_helper {
      */
     public function i_change_viewport_size_in_the_app(int $width, int $height) {
         $this->resize_app_window($width, $height);
+
+        // Some Scenarios are failing in CI after changing viewport size. Add a 400ms wait to see if it helps.
+        usleep(400000);
     }
 
     /**
@@ -1387,6 +1364,30 @@ class behat_app extends behat_app_helper {
      */
     public function i_wait_toast_to_dismiss_in_the_app() {
         $this->runtime_js('waitToastDismiss()');
+    }
+
+
+    /**
+     * Override app environment variables.
+     *
+     * @Given /^the environment config is patched with:$/
+     * @param TableNode $data Table data
+     */
+    public function the_environment_config_is_patched_with(TableNode $data) {
+        $overrides = [];
+        foreach ($data->getRows() as $row) {
+            $name = $row[0];
+            $value = json_decode($this->replace_wwwroot($row[1]));
+            $overrides[$name] = $value;
+        }
+
+        $json = json_encode($overrides);
+
+        $result = $this->zone_js("patchEnvironment($json)");
+
+        if ($result !== 'OK') {
+            throw new DriverException('Error patching environment - ' . $result);
+        }
     }
 
 }

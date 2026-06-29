@@ -1,4 +1,4 @@
-@addon_block_lp @app @block @block_lp @tool_lp @javascript
+@app_parallel_run_competencies @addon_block_lp @app @block @block_lp @tool_lp @javascript
 Feature: View the learning plans block and check
     it links to the correct page
 
@@ -20,6 +20,7 @@ Feature: View the learning plans block and check
     Then the header should be "Learning plans" in the app
     And I should find "Test-Plan1" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     Given the following config values are set as admin:
       | disabledfeatures | CoreBlockDelegate_AddonBlockLp | tool_mobile |

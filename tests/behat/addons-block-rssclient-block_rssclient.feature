@@ -1,4 +1,4 @@
-@addon_block_rss_client @app @block @block_rss_client @javascript @lms_from4.5
+@app_parallel_run_blocks @addon_block_rss_client @app @block @block_rss_client @javascript @lms_from4.5
 Feature: Basic tests of rss client block
 
   Background:
@@ -30,6 +30,7 @@ Feature: Basic tests of rss client block
     And I press "Open block drawer" in the app
     Then I should find "Source site..." within "NASA" "ion-card" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     # Add another block just to ensure there is something in the block region and the drawer is displayed.
     Given the following "blocks" exist:

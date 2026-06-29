@@ -1,4 +1,4 @@
-@addon_block_completionstatus @app @block @block_completionstatus @core_completion @javascript
+@app_parallel_run_completion @addon_block_completionstatus @app @block @block_completionstatus @core_completion @javascript
 Feature: View the completion status block and check
     it links to the correct page
 
@@ -36,6 +36,7 @@ Feature: View the completion status block and check
     Then the header should be "Course completion" in the app
     And I should find "Student 1" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     # Add another block just to ensure there is something in the block region and the drawer is displayed.
     Given the following "blocks" exist:

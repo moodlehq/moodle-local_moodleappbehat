@@ -1,4 +1,4 @@
-@addon_block_activity_modules @app @block @block_activity_modules @javascript @lms_upto5.0
+@app_parallel_run_blocks @addon_block_activity_modules @app @block @block_activity_modules @javascript @lms_upto5.0
 Feature: Basic tests of activity modules block
 
   Background:
@@ -48,6 +48,7 @@ Feature: Basic tests of activity modules block
     When I press "Test forum name 1" in the app
     Then the header should be "Test forum name 1" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     # Add another block just to ensure there is something in the block region and the drawer is displayed.
     Given the following "blocks" exist:

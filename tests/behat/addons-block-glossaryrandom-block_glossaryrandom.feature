@@ -1,4 +1,4 @@
-@addon_block_glossary_random @app @block @block_glossary_random @javascript
+@app_parallel_run_glossary @addon_block_glossary_random @app @block @block_glossary_random @javascript
 Feature: Basic tests of glossay random block
 
   Background:
@@ -59,6 +59,7 @@ Feature: Basic tests of glossay random block
     And I should not find "Aardvark" in the app
     And I should not find "Kangaroo" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     # Add another block just to ensure there is something in the block region and the drawer is displayed.
     Given the following "blocks" exist:

@@ -1,4 +1,4 @@
-@addon_block_badges @app @block @block_badges @javascript
+@app_parallel_run_badges @addon_block_badges @app @block @block_badges @javascript
 Feature: Basic tests of badges block
 
   Background:
@@ -21,6 +21,7 @@ Feature: Basic tests of badges block
     Then I should find "Latest badges" in the app
     And I should find "You have no badges to display" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     # Add another block just to ensure there is something in the block region and the drawer is displayed.
     Given the following "blocks" exist:

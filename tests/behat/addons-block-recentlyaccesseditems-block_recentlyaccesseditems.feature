@@ -1,4 +1,4 @@
-@addon_block_recentlyaccesseditems @app @block @block_recentlyaccesseditems @javascript
+@app_parallel_run_courses @addon_block_recentlyaccesseditems @app @block @block_recentlyaccesseditems @javascript
 Feature: Basic tests of recent accessed items block
 
   Background:
@@ -86,6 +86,7 @@ Feature: Basic tests of recent accessed items block
     And I should find "Test workshop name" within "Recently accessed items" "ion-card" in the app
     And I should not find "Test forum name" within "Recently accessed items" "ion-card" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     # Add another block just to ensure there is something in the block region and the drawer is displayed.
     Given the following "blocks" exist:

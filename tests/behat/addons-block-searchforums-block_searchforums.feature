@@ -1,4 +1,4 @@
-@addon_block_search_forums @app @block @block_search_forums @mod_forum @javascript @lms_from4.3
+@app_parallel_run_blocks @addon_block_search_forums @app @block @block_search_forums @mod_forum @javascript @lms_from4.3
 Feature: View the search forums block and check
     it links to the correct page
 
@@ -52,6 +52,7 @@ Feature: View the search forums block and check
     And I press "Search" "button" in the app
     Then I should find "No results for" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     # Add another block just to ensure there is something in the block region and the drawer is displayed.
     Given the following "blocks" exist:

@@ -1,4 +1,4 @@
-@addon_block_html @app @block @block_html @javascript
+@app_parallel_run_blocks @addon_block_html @app @block @block_html @javascript
 Feature: Basic tests of html block
 
   Background:
@@ -21,6 +21,7 @@ Feature: Basic tests of html block
     Then I should find "HTML title test" in the app
     Then I should find "body test" in the app
 
+  @disabled_features
   Scenario: Block is included in disabled features
     # Add another block just to ensure there is something in the block region and the drawer is displayed.
     Given the following "blocks" exist:

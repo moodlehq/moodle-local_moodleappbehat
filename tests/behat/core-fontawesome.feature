@@ -1,4 +1,4 @@
-@core_fontawesome @app @javascript
+@app_parallel_run_core @core_fontawesome @app @javascript
 Feature: Fontawesome icons are correctly shown in the app
 
   Background:
@@ -18,4 +18,5 @@ Feature: Fontawesome icons are correctly shown in the app
 
   Scenario: View fontawesome icons in the app
     Given I entered the page activity "Page" on course "Course 1" as "student1" in the app
+    And I set ".core-text-viewer-button" styles to "display" "none"
     Then the UI should match the snapshot

@@ -1,11 +1,13 @@
-@addon_messages @app @core @core_message @javascript
+@app_parallel_run_messages @addon_messages @app @core @core_message @javascript
 Feature: Test basic usage of messages in app
   In order to participate with messages while using the mobile app
   As a student
   I need basic message functionality to work
 
   Background:
-    Given the following "users" exist:
+    Given the following config values are set as admin:
+      | enablemycourses | 1 |
+    And the following "users" exist:
       | username | firstname  | lastname  | email                |
       | teacher1 | Teacher    | teacher   | teacher1@example.com |
       | student1 | Student1   | student1  | student1@example.com |
