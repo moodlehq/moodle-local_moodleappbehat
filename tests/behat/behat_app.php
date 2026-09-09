@@ -998,6 +998,29 @@ class behat_app extends behat_app_helper {
     }
 
     /**
+     * Checks that the document title in the app matches the expected text.
+     *
+     * @Then /^the page title should be "((?:[^"]|\\")+)" in the app$/
+     * @param string $text Expected page title
+     * @throws ExpectationException If the page title is different to the expected value
+     */
+    public function the_page_title_should_be_in_the_app(string $text) {
+        $text = trim($text);
+        $this->spin(function() use ($text) {
+            $title = $this->evaluate_script('document.title');
+
+            if (trim($title) !== $text) {
+                throw new ExpectationException(
+                    "Expected page title '$text', got '$title'",
+                    $this->getSession()->getDriver()
+                );
+            }
+
+            return true;
+        });
+    }
+
+    /**
      * Check that the app opened a new browser tab.
      *
      * @Then /^the app should( not)? have opened a browser tab(?: with url "(?P<pattern>[^"]+)")?$/
